@@ -1,13 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/User');
 
 // Registro
 exports.register = async (req, res) => {
   try {
     const { nombre, email, password, rol } = req.body;
 
-    // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
@@ -31,7 +30,8 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    // ✅ FIX: excluir password de la respuesta final
+    const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
       return res.status(400).json({ message: 'Usuario no existe' });
@@ -43,17 +43,20 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Contraseña incorrecta' });
     }
 
-    // Crear token
+    // ✅ FIX: JWT secret desde variable de entorno
     const token = jwt.sign(
       { id: user._id, rol: user.rol },
-      'secreto_super',
-      { expiresIn: '1h' }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
     );
+
+    // ✅ FIX: no enviar el password en la respuesta
+    const { password: _, ...userWithoutPassword } = user.toObject();
 
     res.json({
       message: 'Login exitoso',
       token,
-      user
+      user: userWithoutPassword
     });
 
   } catch (error) {

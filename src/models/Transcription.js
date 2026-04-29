@@ -20,4 +20,7 @@ const transcriptionSchema = new mongoose.Schema({
   }
 });
 
+transcriptionSchema.index({ clase: 1 });           // Buscar transcripciones de una clase
+transcriptionSchema.index({ clase: 1, timestamp: 1 }); // Compuesto — ordenar por tiempo
+
 module.exports = mongoose.model('Transcription', transcriptionSchema);

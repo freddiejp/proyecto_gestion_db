@@ -25,4 +25,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.index({ rol: 1 });          // Buscas profesores por rol al crear cursos
+
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);

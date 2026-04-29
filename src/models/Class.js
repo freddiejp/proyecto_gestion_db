@@ -25,4 +25,8 @@ const classSchema = new mongoose.Schema({
   }
 });
 
+classSchema.index({ curso: 1 });       // Buscar clases de un curso
+classSchema.index({ estado: 1 });      // Filtrar clases activas/finalizadas
+classSchema.index({ curso: 1, estado: 1 }); // Índice compuesto — el más útil
+
 module.exports = mongoose.model('Class', classSchema);

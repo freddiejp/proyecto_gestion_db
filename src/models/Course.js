@@ -33,4 +33,7 @@ const courseSchema = new mongoose.Schema({
   }
 });
 
+courseSchema.index({ profesor: 1 });   // Buscar cursos de un profesor
+courseSchema.index({ estudiantes: 1 }); // Verificar si un estudiante está matriculado
+
 module.exports = mongoose.model('Course', courseSchema);
