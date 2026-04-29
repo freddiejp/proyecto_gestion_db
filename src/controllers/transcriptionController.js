@@ -23,7 +23,7 @@ exports.saveTranscription = async (req, res) => {
     res.status(201).json({ message: 'Texto guardado', newText });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -39,6 +39,6 @@ exports.getTranscriptionsByClass = async (req, res) => {
     res.json(texts);
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };

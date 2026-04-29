@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
+const errorHandler = require('./src/middlewares/errorHandler');
 
 const authRoutes = require('./src/routes/authRoutes');
 const courseRoutes = require('./src/routes/courseRoutes');
@@ -22,6 +23,7 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/classes', classRoutes);
 app.use('/api/transcriptions', transcriptionRoutes);
+app.use(errorHandler);
 
 // Ruta de prueba
 app.get('/', (req, res) => {

@@ -27,7 +27,7 @@ exports.startClass = async (req, res) => {
     res.status(201).json({ message: 'Clase iniciada', newClass });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -55,7 +55,7 @@ exports.joinClass = async (req, res) => {
     res.json({ message: 'Acceso permitido a la clase', clase });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -81,6 +81,6 @@ exports.endClass = async (req, res) => {
     res.json({ message: 'Clase finalizada' });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };

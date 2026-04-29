@@ -29,6 +29,6 @@ exports.createProfesor = async (req, res) => {
     res.status(201).json({ message: 'Profesor creado', newUser: userWithoutPassword });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };

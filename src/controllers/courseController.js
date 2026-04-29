@@ -24,7 +24,7 @@ exports.createCourse = async (req, res) => {
     res.status(201).json({ message: 'Curso creado', course });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -37,7 +37,7 @@ exports.getCourses = async (req, res) => {
     res.json(courses);
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -63,6 +63,6 @@ exports.addStudentToCourse = async (req, res) => {
     res.json({ message: 'Estudiante agregado al curso', course });
 
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
