@@ -10,3 +10,8 @@ exports.classIdParamValidator = [
   param('classId')
     .isMongoId().withMessage('El ID de la clase no es válido')
 ];
+
+exports.courseIdParamValidator = [
+  param('courseId')
+    .isMongoId().withMessage('El ID del curso no es válido')
+];

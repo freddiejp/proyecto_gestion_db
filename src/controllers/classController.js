@@ -84,3 +84,17 @@ exports.endClass = async (req, res) => {
     next(error);
   }
 };
+
+exports.getClassesByCourse = async (req, res, next) => {
+  try {
+    const { courseId } = req.params;
+
+    const classes = await Class.find({ curso: courseId })
+      .sort({ fechaInicio: -1 });
+
+    res.json(classes);
+
+  } catch (error) {
+    next(error);
+  }
+};
